@@ -40,8 +40,9 @@ const App: React.FC = () => {
     }, []);
 
     const fetchAllData = useCallback(async () => {
+        const docQuery = 'id, created_at, updated_at, title, department, sender:submitter, status, documentNumber, remarks, processingDays';
         const [docs, depts, stats] = await Promise.all([
-            supabase.from('documents').select('*').order('created_at', { ascending: false }),
+            supabase.from('documents').select(docQuery).order('created_at', { ascending: false }),
             supabase.from('departments').select('*').order('name'),
             supabase.from('statuses').select('*').order('name')
         ]);
